@@ -82,9 +82,30 @@ function App() {
   };
 
   return (
+      <>
+      {/* Add global styles for html and body */}
+      <style>
+        {`
+          html, body {
+            background: linear-gradient(to bottom right, #1a202c, #2d3748);
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+          }
+          
+          #tsparticles {
+            position: fixed !important;
+            width: 100% !important;
+            height: 100% !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 0 !important;
+          }
+        `}
+      </style>
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white relative">
       {showParticles && (
-      <div className="fixed top-0 left-0 w-full h-full" style={{ zIndex: -1 }}>
+      // <div className="fixed top-0 left-0 w-full h-full" style={{ zIndex: -1 }}>
         <Particles
           id="tsparticles"
           init={particlesInit}
@@ -96,10 +117,6 @@ function App() {
             particles: {
               color: {
                 value: "#ffffff"
-              },
-              fullscreen: {
-                enable: true,
-                zIndex: -1
               },
               links: {
                 color: "#ffffff",
@@ -129,7 +146,7 @@ function App() {
             detectRetina: true
           }}
         />
-      </div>
+      // </div>
       )}
 
       {/* Social Sidebar */}
@@ -210,15 +227,29 @@ function App() {
             </p>
           </div>
 
-          {/* About Section */}
-          <div ref={aboutRef} className="mb-24 scroll-mt-24">
-            <h2 className="text-3xl font-bold mb-8 text-amber-400">About Me</h2>
-            <div className="bg-gray-800/50 rounded-xl p-8">
-              <p className="text-gray-300 leading-relaxed">
-                With over 5 years of experience in full-stack development, I specialize in building scalable web applications using modern technologies. My passion lies in creating elegant solutions to complex problems and staying at the forefront of web development trends.
-              </p>
+            {/* About Section */}
+            <div ref={aboutRef} className="mb-24 scroll-mt-24">
+              <h2 className="text-3xl font-bold mb-8 text-amber-400">About Me</h2>
+              <div className="bg-gray-800/50 rounded-xl p-8">
+                <p className="text-gray-300 leading-relaxed mb-8">
+                  With over 5 years of experience in full-stack development, I specialize in building scalable web applications using modern technologies. My passion lies in creating elegant solutions to complex problems and staying at the forefront of web development trends.
+                </p>
+                
+                {/* CV Button Section */}
+                <div className="flex justify-center mt-4">
+                  <a 
+                    href="/assets/CV.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors shadow-lg group"
+                  >
+                    <ExternalLink className="w-5 h-5 group-hover:animate-pulse" />
+                    <span>View CV</span>
+                    <Download className="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
 
           {/* Projects Section */}
           <div ref={projectsRef} className="mb-24 scroll-mt-24">
@@ -278,7 +309,14 @@ function App() {
           </div>
         </div>
       </div>
-    </div>
+      {/* Added Footer */}
+        <footer className="bg-gray-900 py-8">
+          <div className="container mx-auto px-4 text-center text-gray-400">
+            <p>© {new Date().getFullYear()} John Doe. All rights reserved.</p>
+          </div>
+        </footer>
+      </div>
+    </>
   );
 }
 

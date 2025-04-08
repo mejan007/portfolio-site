@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Code, Award, Brain, User } from 'lucide-react';
+import { Github, Linkedin, Mail, Code, Award, Brain, User, Download, ExternalLink } from 'lucide-react';
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";
 import Particles from "react-tsparticles";
@@ -17,9 +17,8 @@ function App() {
   let navTimeout: NodeJS.Timeout;
 
   const titles = [
-    "Full Stack Developer",
     "Computer Engineer",
-    "Machine Learning Enthusiast"
+    "Machine Learning Enthusiast",
   ];
 
   useEffect(() => {
@@ -34,7 +33,7 @@ function App() {
         setIsNavVisible(false);
         clearTimeout(navTimeout);
       }
-};
+    };
 
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -77,12 +76,12 @@ function App() {
   }, []);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
-    // setShowParticles(false);
+    // Don't disable particles when navigating
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-      <>
+    <>
       {/* Add global styles for html and body */}
       <style>
         {`
@@ -103,129 +102,128 @@ function App() {
           }
         `}
       </style>
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white relative">
-      {showParticles && (
-      // <div className="fixed top-0 left-0 w-full h-full" style={{ zIndex: -1 }}>
-        <Particles
-          id="tsparticles"
-          init={particlesInit}
-          options={{
-            background: {
-              opacity: 0
-            },
-            fpsLimit: 120,
-            particles: {
-              color: {
-                value: "#ffffff"
+      
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white relative">
+        {showParticles && (
+          <Particles
+            id="tsparticles"
+            init={particlesInit}
+            options={{
+              background: {
+                opacity: 0
               },
-              links: {
-                color: "#ffffff",
-                distance: 150,
-                enable: true,
-                opacity: 0.2,
-                width: 1
-              },
-              move: {
-                enable: true,
-                speed: 2
-              },
-              number: {
-                density: {
-                  enable: true,
-                  area: 800
+              fpsLimit: 60,
+              particles: {
+                color: {
+                  value: "#ffffff"
                 },
-                value: 80
+                links: {
+                  color: "#ffffff",
+                  distance: 150,
+                  enable: true,
+                  opacity: 0.2,
+                  width: 1
+                },
+                move: {
+                  enable: true,
+                  speed: 2
+                },
+                number: {
+                  density: {
+                    enable: true,
+                    area: 800
+                  },
+                  value: 80
+                },
+                opacity: {
+                  value: 0.3
+                },
+                size: {
+                  value: { min: 1, max: 3 }
+                }
               },
-              opacity: {
-                value: 0.3
-              },
-              size: {
-                value: { min: 1, max: 3 }
-              }
-            },
-            detectRetina: true
-          }}
-        />
-      // </div>
-      )}
+              detectRetina: true
+            }}
+          />
+        )}
 
-      {/* Social Sidebar */}
-      <div className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50">
-        <div className="flex flex-col gap-6">
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-amber-400 transition-colors"
-          >
-            <Github className="w-6 h-6" />
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-amber-400 transition-colors"
-          >
-            <Linkedin className="w-6 h-6" />
-          </a>
-          <a
-            href="mailto:your.email@example.com"
-            className="text-gray-300 hover:text-amber-400 transition-colors"
-          >
-            <Mail className="w-6 h-6" />
-          </a>
-        </div>
-      </div>
-
-      {/* Navigation Bar */}
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-40 transition-transform duration-300 ${
-          isNavVisible ? 'translate-y-0' : '-translate-y-full'
-        }`}
-      >
-        <div className="container mx-auto px-4 py-6">
-          <div className="max-w-md mx-auto bg-gray-900/90 backdrop-blur-sm rounded-full px-8 py-3">
-            <div className="flex justify-between items-center">
-              {[
-                { name: 'About', icon: User, ref: aboutRef },
-                { name: 'Projects', icon: Code, ref: projectsRef },
-                { name: 'Certifications', icon: Award, ref: certificationsRef },
-                { name: 'Skills', icon: Brain, ref: skillsRef },
-              ].map(({ name, icon: Icon, ref }) => (
-                <button
-                  key={name}
-                  onClick={() => scrollToSection(ref)}
-                  className="flex items-center gap-2 text-gray-300 hover:text-amber-400 transition-colors"
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{name}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <div className="container mx-auto px-4 pt-24 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          {/* Hero Section */}
-          <div className="min-h-screen flex flex-col items-center justify-center">
-            <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden ring-4 ring-indigo-500 shadow-xl mb-8">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500"
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">John Doe</h1>
-            <p 
-              className={`text-xl md:text-2xl text-gray-300 transition-opacity duration-500 ${
-                fadeState === 'fade-in' ? 'opacity-100' : 'opacity-0'
-              }`}
+        {/* Social Sidebar */}
+        <div className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50">
+          <div className="flex flex-col gap-6">
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-amber-400 transition-colors"
             >
-              {titles[titleIndex]}
-            </p>
+              <Github className="w-6 h-6" />
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-amber-400 transition-colors"
+            >
+              <Linkedin className="w-6 h-6" />
+            </a>
+            <a
+              href="mailto:your.email@example.com"
+              className="text-gray-300 hover:text-amber-400 transition-colors"
+            >
+              <Mail className="w-6 h-6" />
+            </a>
           </div>
+        </div>
+
+        {/* Navigation Bar */}
+        <nav 
+          className={`fixed top-0 left-0 right-0 z-40 transition-transform duration-300 ${
+            isNavVisible ? 'translate-y-0' : '-translate-y-full'
+          }`}
+        >
+          <div className="container mx-auto px-4 py-6">
+            <div className="max-w-md mx-auto bg-gray-900/90 backdrop-blur-sm rounded-full px-8 py-3">
+              <div className="flex justify-between items-center">
+                {[
+                  { name: 'About', icon: User, ref: aboutRef },
+                  { name: 'Projects', icon: Code, ref: projectsRef },
+                  { name: 'Certifications', icon: Award, ref: certificationsRef },
+                  { name: 'Skills', icon: Brain, ref: skillsRef },
+                ].map(({ name, icon: Icon, ref }) => (
+                  <button
+                    key={name}
+                    onClick={() => scrollToSection(ref)}
+                    className="flex items-center gap-2 text-gray-300 hover:text-amber-400 transition-colors"
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span>{name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div className="container mx-auto px-4 pt-24 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            {/* Hero Section */}
+            <div className="min-h-screen flex flex-col items-center justify-center">
+              <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden ring-4 ring-indigo-500 shadow-xl mb-8">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500"
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">John Doe</h1>
+              <p 
+                className={`text-xl md:text-2xl text-gray-300 transition-opacity duration-500 ${
+                  fadeState === 'fade-in' ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                {titles[titleIndex]}
+              </p>
+            </div>
 
             {/* About Section */}
             <div ref={aboutRef} className="mb-24 scroll-mt-24">
@@ -238,7 +236,7 @@ function App() {
                 {/* CV Button Section */}
                 <div className="flex justify-center mt-4">
                   <a 
-                    href="/assets/CV.pdf" 
+                    href="/path-to-your-cv.pdf" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors shadow-lg group"
@@ -251,65 +249,66 @@ function App() {
               </div>
             </div>
 
-          {/* Projects Section */}
-          <div ref={projectsRef} className="mb-24 scroll-mt-24">
-            <h2 className="text-3xl font-bold mb-8 text-amber-400">Projects</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {[1, 2, 3, 4].map((project) => (
-                <div key={project} className="bg-gray-800/50 rounded-xl p-6 hover:ring-2 hover:ring-indigo-500 transition-all">
-                  <h3 className="text-xl font-semibold mb-3">Project {project}</h3>
-                  <p className="text-gray-400 mb-4">A brief description of the project and its key features. Technologies used and impact created.</p>
-                  <div className="flex gap-2">
-                    <span className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm">React</span>
-                    <span className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm">Node.js</span>
+            {/* Projects Section */}
+            <div ref={projectsRef} className="mb-24 scroll-mt-24">
+              <h2 className="text-3xl font-bold mb-8 text-amber-400">Projects</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                {[1, 2, 3, 4].map((project) => (
+                  <div key={project} className="bg-gray-800/50 rounded-xl p-6 hover:ring-2 hover:ring-indigo-500 transition-all">
+                    <h3 className="text-xl font-semibold mb-3">Project {project}</h3>
+                    <p className="text-gray-400 mb-4">A brief description of the project and its key features. Technologies used and impact created.</p>
+                    <div className="flex gap-2">
+                      <span className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm">React</span>
+                      <span className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm">Node.js</span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Certifications Section */}
-          <div ref={certificationsRef} className="mb-24 scroll-mt-24">
-            <h2 className="text-3xl font-bold mb-8 text-amber-400">Certifications</h2>
-            <div className="space-y-6">
-              {[1, 2, 3].map((cert) => (
-                <div key={cert} className="bg-gray-800/50 rounded-xl p-6 flex items-center gap-6">
-                  <Award className="w-12 h-12 text-indigo-400" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Certification {cert}</h3>
-                    <p className="text-gray-400">Issuing organization • Year</p>
+            {/* Certifications Section */}
+            <div ref={certificationsRef} className="mb-24 scroll-mt-24">
+              <h2 className="text-3xl font-bold mb-8 text-amber-400">Certifications</h2>
+              <div className="space-y-6">
+                {[1, 2, 3].map((cert) => (
+                  <div key={cert} className="bg-gray-800/50 rounded-xl p-6 flex items-center gap-6">
+                    <Award className="w-12 h-12 text-indigo-400" />
+                    <div>
+                      <h3 className="text-xl font-semibold mb-2">Certification {cert}</h3>
+                      <p className="text-gray-400">Issuing organization • Year</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Skills Section */}
-          <div ref={skillsRef} className="mb-24 scroll-mt-24">
-            <h2 className="text-3xl font-bold mb-8 text-amber-400">Skills</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {[
-                { category: 'Frontend', skills: ['React', 'TypeScript', 'Tailwind CSS', 'Next.js'] },
-                { category: 'Backend', skills: ['Node.js', 'Python', 'PostgreSQL', 'Redis'] },
-                { category: 'DevOps', skills: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'] },
-                { category: 'Tools', skills: ['Git', 'VS Code', 'Figma', 'Postman'] },
-              ].map(({ category, skills }) => (
-                <div key={category} className="bg-gray-800/50 rounded-xl p-6">
-                  <h3 className="text-xl font-semibold mb-4 text-indigo-400">{category}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {skills.map((skill) => (
-                      <span key={skill} className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm">
-                        {skill}
-                      </span>
-                    ))}
+            {/* Skills Section */}
+            <div ref={skillsRef} className="mb-24 scroll-mt-24">
+              <h2 className="text-3xl font-bold mb-8 text-amber-400">Skills</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                {[
+                  { category: 'Frontend', skills: ['React', 'TypeScript', 'Tailwind CSS', 'Next.js'] },
+                  { category: 'Backend', skills: ['Node.js', 'Python', 'PostgreSQL', 'Redis'] },
+                  { category: 'DevOps', skills: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'] },
+                  { category: 'Tools', skills: ['Git', 'VS Code', 'Figma', 'Postman'] },
+                ].map(({ category, skills }) => (
+                  <div key={category} className="bg-gray-800/50 rounded-xl p-6">
+                    <h3 className="text-xl font-semibold mb-4 text-indigo-400">{category}</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {skills.map((skill) => (
+                        <span key={skill} className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* Added Footer */}
+
+        {/* Added Footer */}
         <footer className="bg-gray-900 py-8">
           <div className="container mx-auto px-4 text-center text-gray-400">
             <p>© {new Date().getFullYear()} John Doe. All rights reserved.</p>

@@ -2,7 +2,13 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # or your default branch
+    branches: [ main ]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -19,14 +25,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Install gh-pages package
-        run: npm install --save-dev gh-pages
-        
       - name: Build
         run: npm run build
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          folder: dist  # The folder the action should deploy
-          branch: gh-pages  # The branch the action should deploy to
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

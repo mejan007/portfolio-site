@@ -151,7 +151,7 @@ function App() {
         <div className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50">
           <div className="flex flex-col gap-6">
             <a
-              href="https://github.com"
+              href="https://github.com/mejan007"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-amber-400 transition-colors"
@@ -159,7 +159,7 @@ function App() {
               <Github className="w-6 h-6" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/mejan-lamichhane-581408284/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-amber-400 transition-colors"
@@ -167,7 +167,7 @@ function App() {
               <Linkedin className="w-6 h-6" />
             </a>
             <a
-              href="mailto:your.email@example.com"
+              href="mailto:mejan.lamichhane15@gmail.com"
               className="text-gray-300 hover:text-amber-400 transition-colors"
             >
               <Mail className="w-6 h-6" />
@@ -215,7 +215,7 @@ function App() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">John Doe</h1>
+              <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">Mejan Lamichhane</h1>
               <p 
                 className={`text-xl md:text-2xl text-gray-300 transition-opacity duration-500 ${
                   fadeState === 'fade-in' ? 'opacity-100' : 'opacity-0'
@@ -236,7 +236,7 @@ function App() {
                 {/* CV Button Section */}
                 <div className="flex justify-center mt-4">
                   <a 
-                    href="/path-to-your-cv.pdf" 
+                    href="/assets/CV.pdf" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors shadow-lg group"

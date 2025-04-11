@@ -212,7 +212,7 @@ function App() {
                 <img
                   src="assets/me.jpg"
                   alt="Profile"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover absolute inset-0"
                 />
               </div>
               <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">Mejan Lamichhane</h1>

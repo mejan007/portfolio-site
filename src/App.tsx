@@ -210,7 +210,7 @@ function App() {
             <div className="min-h-screen flex flex-col items-center justify-center">
               <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden ring-4 ring-indigo-500 shadow-xl mb-8">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500"
+                  src="assets/me.jpg"
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />

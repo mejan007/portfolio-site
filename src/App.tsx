@@ -236,7 +236,7 @@ function App() {
                 {/* CV Button Section */}
                 <div className="flex justify-center mt-4">
                   <a 
-                    href="/assets/CV.pdf" 
+                    href="assets/CV.pdf" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors shadow-lg group"
@@ -311,7 +311,7 @@ function App() {
         {/* Added Footer */}
         <footer className="bg-gray-900 py-8">
           <div className="container mx-auto px-4 text-center text-gray-400">
-            <p>© {new Date().getFullYear()} John Doe. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Mejan Lamichhane. All rights reserved.</p>
           </div>
         </footer>
       </div>

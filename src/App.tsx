@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Code, Award, Brain, User, Download, ExternalLink } from 'lucide-react';
+import { GitHub, Linkedin, Mail, Code, Award, Brain, User, Download, ExternalLink } from 'lucide-react';
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";
 import Particles from "react-tsparticles";
@@ -14,6 +14,8 @@ function App() {
   const [fadeState, setFadeState] = useState('fade-in');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true);
+  const [showMailTooltip, setShowMailTooltip] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
   let navTimeout: NodeJS.Timeout;
 
   const titles = [
@@ -147,33 +149,84 @@ function App() {
           />
         )}
 
-        {/* Social Sidebar */}
-        <div className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50">
-          <div className="flex flex-col gap-6">
-            <a
-              href="https://github.com/mejan007"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-amber-400 transition-colors"
-            >
-              <Github className="w-6 h-6" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/mejan-lamichhane-581408284/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-amber-400 transition-colors"
-            >
-              <Linkedin className="w-6 h-6" />
-            </a>
-            <a
-              href="mailto:mejan.lamichhane15@gmail.com"
-              className="text-gray-300 hover:text-amber-400 transition-colors"
-            >
-              <Mail className="w-6 h-6" />
-            </a>
+{/* Social Sidebar */}
+<div className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50">
+  <div className="flex flex-col gap-6">
+
+    <a
+      href="https://github.com/mejan007"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-300 hover:text-amber-400 transition-colors"
+    >
+      <GitHub className="w-6 h-6" />
+    </a>
+
+    <a
+      href="https://www.linkedin.com/in/mejan-lamichhane-581408284/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-300 hover:text-amber-400 transition-colors"
+    >
+      <Linkedin className="w-6 h-6" />
+    </a>
+
+    {/* Mail Link */}
+    <div className="relative">
+      <a
+        href={`mailto:mejan.lamichhane15@gmail.com?subject=Hello from your portfolio`}
+        onClick={(e) => {
+          if (navigator.clipboard) {
+            e.preventDefault();
+            setShowMailTooltip(!showMailTooltip);
+          }
+        }}
+        className="text-gray-300 hover:text-amber-400 transition-colors"
+      >
+        <Mail className="w-6 h-6" />
+      </a>
+
+      {showMailTooltip && (
+        <div 
+          className="absolute left-10 -top-12 w-52 bg-gray-800 p-3 rounded-lg shadow-lg z-50 text-sm"
+        >
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <span className="text-white text-xs truncate">mejan.lamichhane15@gmail.com</span>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigator.clipboard.writeText("mejan.lamichhane15@gmail.com");
+                  setCopiedEmail(true);
+                  setTimeout(() => setCopiedEmail(false), 2000);
+                }}
+                className="text-gray-300 hover:text-amber-400"
+              >
+                {copiedEmail ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+              </button>
+            </div>
+            <div className="flex gap-2 text-xs">
+              <a 
+                href={`mailto:mejan.lamichhane15@gmail.com`}
+                className="bg-indigo-600 hover:bg-indigo-700 px-2 py-1 rounded text-white flex-1 text-center"
+              >
+                Open Mail
+              </a>
+              <button 
+                onClick={() => setShowMailTooltip(false)}
+                className="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-white"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
+      )}
+    </div>
+
+  </div>
+</div>
+
 
         {/* Navigation Bar */}
         <nav 
@@ -236,10 +289,11 @@ function App() {
                 {/* CV Button Section */}
                 <div className="flex justify-center mt-4">
                   <a 
-                    href="assets/CV.pdf" 
+                    href="/CV.pdf" 
+                    download
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors shadow-lg group"
+                    className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors shadow-lg group cursor-pointer"
                   >
                     <ExternalLink className="w-5 h-5 group-hover:animate-pulse" />
                     <span>View CV</span>

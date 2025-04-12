@@ -1,5 +1,15 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
-import { GitHub, Linkedin, Mail, Code, Award, Brain, User, Download, ExternalLink } from 'lucide-react';
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Code,
+  Award,
+  Brain,
+  User,
+  Download,
+  ExternalLink
+} from 'lucide-react';
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";
 import Particles from "react-tsparticles";
@@ -149,6 +159,7 @@ function App() {
           />
         )}
 
+
 {/* Social Sidebar */}
 <div className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50">
   <div className="flex flex-col gap-6">
@@ -159,7 +170,7 @@ function App() {
       rel="noopener noreferrer"
       className="text-gray-300 hover:text-amber-400 transition-colors"
     >
-      <GitHub className="w-6 h-6" />
+      <Github className="w-6 h-6" />
     </a>
 
     <a

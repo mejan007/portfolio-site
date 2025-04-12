@@ -160,19 +160,11 @@ function App() {
                     enable: true,
                     mode: "push",
                   },
-                  onHover: {
-                    enable: true,
-                    mode: "repulse",
-                  },
                   resize: true,
                 },
                 modes: {
                   push: {
                     quantity: 4,
-                  },
-                  repulse: {
-                    distance: 200,
-                    duration: 0.4,
                   },
                 },
               },

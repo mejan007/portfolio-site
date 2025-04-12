@@ -198,7 +198,7 @@ function App() {
         <Mail className="w-6 h-6" />
       </a>
 
-      {showMailTooltip && (
+      {/* {showMailTooltip && (
         <div 
           className="absolute left-10 -top-12 w-52 bg-gray-800 p-3 rounded-lg shadow-lg z-50 text-sm"
         >
@@ -234,7 +234,44 @@ function App() {
           </div>
         </div>
       )}
+    </div> */}
+    {showMailTooltip && (
+  <div className="absolute left-10 -top-12 w-64 bg-gray-800 p-4 rounded-lg shadow-lg z-[51] text-sm">
+    <div className="flex flex-col gap-3">
+      <h3 className="text-white font-semibold text-base">Contact Me</h3>
+      <div className="flex gap-2">
+        <button
+          onClick={() => setShowMailTooltip(false)}
+          className="text-gray-300 hover:text-amber-400 underline"
+        >
+          Mail Link
+        </button>
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText("mejan.lamichhane15@gmail.com");
+            setCopiedEmail(true);
+            setTimeout(() => setCopiedEmail(false), 2000);
+          }}
+          className="text-gray-300 hover:text-amber-400 underline"
+        >
+          Copy Email
+        </button>
+      </div>
+      <hr className="border-amber-400" />
+      <p className="text-gray-300">Open your email client to contact me:</p>
+      <a
+        href={`mailto:mejan.lamichhane15@gmail.com`}
+        className="bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded text-white flex items-center justify-center gap-2"
+      >
+        <Mail className="w-4 h-4" />
+        Email Me
+      </a>
+      <p className="text-gray-400 text-xs">
+        Note: This requires a configured email client on your device
+      </p>
     </div>
+  </div>
+)}
 
   </div>
 </div>

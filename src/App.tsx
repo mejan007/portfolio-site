@@ -164,118 +164,66 @@ function App() {
 
 {/* Social Sidebar */}
 <div className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50">
-  <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6">
+            <a href="https://github.com/mejan007" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-amber-400 transition-colors">
+              <Github className="w-6 h-6" />
+            </a>
+            <a href="https://www.linkedin.com/in/mejan-lamichhane-581408284/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-amber-400 transition-colors">
+              <Linkedin className="w-6 h-6" />
+            </a>
 
-    <a
-      href="https://github.com/mejan007"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-gray-300 hover:text-amber-400 transition-colors"
-    >
-      <Github className="w-6 h-6" />
-    </a>
-
-    <a
-      href="https://www.linkedin.com/in/mejan-lamichhane-581408284/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-gray-300 hover:text-amber-400 transition-colors"
-    >
-      <Linkedin className="w-6 h-6" />
-    </a>
-
-    {/* Mail Link */}
-    <div className="relative">
-      <a
-        href={`mailto:mejan.lamichhane15@gmail.com?subject=Hello from your portfolio`}
-        onClick={(e) => {
-          e.preventDefault(); // Prevent the default mailto action for now
-          console.log("Toggling tooltip, current state:", showMailTooltip);
-          setShowMailTooltip(!showMailTooltip); // Toggle the tooltip regardless of clipboard
-        }}
-        className="text-gray-300 hover:text-amber-400 transition-colors"
-      >
-        <Mail className="w-6 h-6" />
-      </a>
-
-      {/* {showMailTooltip && (
-        <div 
-          className="absolute left-10 -top-12 w-52 bg-gray-800 p-3 rounded-lg shadow-lg z-50 text-sm"
-        >
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between">
-              <span className="text-white text-xs truncate">mejan.lamichhane15@gmail.com</span>
-              <button
+            <div className="relative">
+              <a
+                href="mailto:mejan.lamichhane15@gmail.com?subject=Hello from your portfolio"
                 onClick={(e) => {
                   e.preventDefault();
-                  navigator.clipboard.writeText("mejan.lamichhane15@gmail.com");
-                  setCopiedEmail(true);
-                  setTimeout(() => setCopiedEmail(false), 2000);
+                  setShowMailTooltip(!showMailTooltip);
                 }}
-                className="text-gray-300 hover:text-amber-400"
+                className="text-gray-300 hover:text-amber-400 transition-colors"
               >
-                {copiedEmail ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-              </button>
-            </div>
-            <div className="flex gap-2 text-xs">
-              <a 
-                href={`mailto:mejan.lamichhane15@gmail.com`}
-                className="bg-indigo-600 hover:bg-indigo-700 px-2 py-1 rounded text-white flex-1 text-center"
-              >
-                Open Mail
+                <Mail className="w-6 h-6" />
               </a>
-              <button 
-                onClick={() => setShowMailTooltip(false)}
-                className="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-white"
-              >
-                Close
-              </button>
+
+              {showMailTooltip && (
+                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 w-64 bg-gray-800 p-4 rounded-lg shadow-lg z-[51] text-sm">
+                  <div className="flex flex-col gap-3">
+                    <h3 className="text-white font-semibold text-base">Contact Me</h3>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => setShowMailTooltip(false)}
+                        className="text-gray-300 hover:text-amber-400 underline"
+                      >
+                        Mail Link
+                      </button>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText("mejan.lamichhane15@gmail.com");
+                          setCopiedEmail(true);
+                          setTimeout(() => setCopiedEmail(false), 2000);
+                        }}
+                        className="text-gray-300 hover:text-amber-400 underline"
+                      >
+                        Copy Email
+                      </button>
+                    </div>
+                    <hr className="border-amber-400" />
+                    <p className="text-gray-300">Open your email client to contact me:</p>
+                    <a
+                      href="mailto:mejan.lamichhane15@gmail.com"
+                      className="bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded text-white flex items-center justify-center gap-2"
+                    >
+                      <Mail className="w-4 h-4" />
+                      Email Me
+                    </a>
+                    <p className="text-gray-400 text-xs">
+                      Note: This requires a configured email client on your device
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      )}
-    </div> */}
-    {showMailTooltip && (
-  <div className="absolute left-10 -top-12 w-64 bg-gray-800 p-4 rounded-lg shadow-lg z-[51] text-sm">
-    <div className="flex flex-col gap-3">
-      <h3 className="text-white font-semibold text-base">Contact Me</h3>
-      <div className="flex gap-2">
-        <button
-          onClick={() => setShowMailTooltip(false)}
-          className="text-gray-300 hover:text-amber-400 underline"
-        >
-          Mail Link
-        </button>
-        <button
-          onClick={() => {
-            navigator.clipboard.writeText("mejan.lamichhane15@gmail.com");
-            setCopiedEmail(true);
-            setTimeout(() => setCopiedEmail(false), 2000);
-          }}
-          className="text-gray-300 hover:text-amber-400 underline"
-        >
-          Copy Email
-        </button>
-      </div>
-      <hr className="border-amber-400" />
-      <p className="text-gray-300">Open your email client to contact me:</p>
-      <a
-        href={`mailto:mejan.lamichhane15@gmail.com`}
-        className="bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded text-white flex items-center justify-center gap-2"
-      >
-        <Mail className="w-4 h-4" />
-        Email Me
-      </a>
-      <p className="text-gray-400 text-xs">
-        Note: This requires a configured email client on your device
-      </p>
-    </div>
-  </div>
-)}
-
-  </div>
-</div>
-
 
         {/* Navigation Bar */}
         <nav 

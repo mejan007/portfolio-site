@@ -9,8 +9,6 @@ import {
   User,
   Download,
   ExternalLink,
-  Check,
-  Copy
 } from 'lucide-react';
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";
@@ -260,9 +258,9 @@ function App() {
             <div className="min-h-screen flex flex-col items-center justify-center">
               <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden ring-4 ring-indigo-500 shadow-xl mb-8">
                 <img
-                  src="assets/me.jpg"
+                  src="/me.jpg"
                   alt="Profile"
-                  className="w-full h-full object-cover absolute inset-0"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">Mejan Lamichhane</h1>

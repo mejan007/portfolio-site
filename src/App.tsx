@@ -8,7 +8,9 @@ import {
   Brain,
   User,
   Download,
-  ExternalLink
+  ExternalLink,
+  Check,
+  Copy
 } from 'lucide-react';
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";

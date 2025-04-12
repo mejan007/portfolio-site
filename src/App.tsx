@@ -9,6 +9,9 @@ import {
   User,
   Download,
   ExternalLink,
+  Copy,
+  Check,
+  X,
 } from 'lucide-react';
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";
@@ -19,13 +22,16 @@ function App() {
   const projectsRef = useRef<HTMLDivElement>(null);
   const certificationsRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const [showParticles, setShowParticles] = useState(true);
   const [titleIndex, setTitleIndex] = useState(0);
   const [fadeState, setFadeState] = useState('fade-in');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [showMailTooltip, setShowMailTooltip] = useState(false);
-  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [activeTab, setActiveTab] = useState('mailto');
+  const email = "mejan.lamichhane15@gmail.com";
+  const [copied, setCopied] = useState(false);
   let navTimeout: NodeJS.Timeout;
 
   const titles = [
@@ -34,11 +40,29 @@ function App() {
   ];
 
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+        setShowMailTooltip(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  useEffect(() => {
     const handleScroll = () => {
       const isAtTop = window.scrollY <= 100;
       setIsScrolled(!isAtTop);
       
-      // Automatically show nav when at top
       if (isAtTop) {
         setIsNavVisible(true);
       } else {
@@ -87,14 +111,16 @@ function App() {
     await loadSlim(engine);
   }, []);
 
+  const particlesLoaded = useCallback(async (container: Container | undefined) => {
+    console.log(container);
+  }, []);
+
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
-    // Don't disable particles when navigating
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <>
-      {/* Add global styles for html and body */}
       <style>
         {`
           html, body {
@@ -120,48 +146,80 @@ function App() {
           <Particles
             id="tsparticles"
             init={particlesInit}
+            loaded={particlesLoaded}
             options={{
               background: {
-                opacity: 0
+                color: {
+                  value: "transparent",
+                },
               },
-              fpsLimit: 60,
+              fpsLimit: 120,
+              interactivity: {
+                events: {
+                  onClick: {
+                    enable: true,
+                    mode: "push",
+                  },
+                  onHover: {
+                    enable: true,
+                    mode: "repulse",
+                  },
+                  resize: true,
+                },
+                modes: {
+                  push: {
+                    quantity: 4,
+                  },
+                  repulse: {
+                    distance: 200,
+                    duration: 0.4,
+                  },
+                },
+              },
               particles: {
                 color: {
-                  value: "#ffffff"
+                  value: "#ffffff",
                 },
                 links: {
                   color: "#ffffff",
                   distance: 150,
                   enable: true,
-                  opacity: 0.2,
-                  width: 1
+                  opacity: 0.5,
+                  width: 1,
                 },
                 move: {
+                  direction: "none",
                   enable: true,
-                  speed: 2
+                  outModes: {
+                    default: "bounce",
+                  },
+                  random: false,
+                  speed: 2,
+                  straight: false,
                 },
                 number: {
                   density: {
                     enable: true,
-                    area: 800
+                    area: 800,
                   },
-                  value: 80
+                  value: 80,
                 },
                 opacity: {
-                  value: 0.3
+                  value: 0.5,
+                },
+                shape: {
+                  type: "circle",
                 },
                 size: {
-                  value: { min: 1, max: 3 }
-                }
+                  value: { min: 1, max: 5 },
+                },
               },
-              detectRetina: true
+              detectRetina: true,
             }}
           />
         )}
 
-
-{/* Social Sidebar */}
-<div className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50">
+        <div className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50">
           <div className="flex flex-col gap-6">
             <a href="https://github.com/mejan007" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-amber-400 transition-colors">
               <Github className="w-6 h-6" />
@@ -171,59 +229,79 @@ function App() {
             </a>
 
             <div className="relative">
-              <a
-                href="mailto:mejan.lamichhane15@gmail.com?subject=Hello from your portfolio"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setShowMailTooltip(!showMailTooltip);
-                }}
+              <button
+                onClick={() => setShowMailTooltip(!showMailTooltip)}
                 className="text-gray-300 hover:text-amber-400 transition-colors"
               >
                 <Mail className="w-6 h-6" />
-              </a>
+              </button>
 
               {showMailTooltip && (
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 w-64 bg-gray-800 p-4 rounded-lg shadow-lg z-[51] text-sm">
-                  <div className="flex flex-col gap-3">
-                    <h3 className="text-white font-semibold text-base">Contact Me</h3>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => setShowMailTooltip(false)}
-                        className="text-gray-300 hover:text-amber-400 underline"
-                      >
-                        Mail Link
-                      </button>
-                      <button
-                        onClick={() => {
-                          navigator.clipboard.writeText("mejan.lamichhane15@gmail.com");
-                          setCopiedEmail(true);
-                          setTimeout(() => setCopiedEmail(false), 2000);
-                        }}
-                        className="text-gray-300 hover:text-amber-400 underline"
-                      >
-                        Copy Email
-                      </button>
-                    </div>
-                    <hr className="border-amber-400" />
-                    <p className="text-gray-300">Open your email client to contact me:</p>
-                    <a
-                      href="mailto:mejan.lamichhane15@gmail.com"
-                      className="bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded text-white flex items-center justify-center gap-2"
+                <div ref={tooltipRef} className="absolute left-full top-1/2 -translate-y-1/2 ml-3 w-72 bg-gray-800 p-4 rounded-lg shadow-lg z-[51]">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-xl text-white font-bold">Contact Me</h3>
+                    <button
+                      onClick={() => setShowMailTooltip(false)}
+                      className="text-gray-400 hover:text-white transition-colors"
                     >
-                      <Mail className="w-4 h-4" />
-                      Email Me
-                    </a>
-                    <p className="text-gray-400 text-xs">
-                      Note: This requires a configured email client on your device
-                    </p>
+                      <X className="w-5 h-5" />
+                    </button>
                   </div>
+                  
+                  <div className="flex border-b border-gray-700 mb-4">
+                    <button 
+                      className={`px-4 py-2 ${activeTab === 'mailto' ? 'text-amber-400 border-b-2 border-amber-400' : 'text-gray-400'}`}
+                      onClick={() => setActiveTab('mailto')}
+                    >
+                      Mail Link
+                    </button>
+                    <button 
+                      className={`px-4 py-2 ${activeTab === 'copy' ? 'text-amber-400 border-b-2 border-amber-400' : 'text-gray-400'}`}
+                      onClick={() => setActiveTab('copy')}
+                    >
+                      Copy Email
+                    </button>
+                  </div>
+                  
+                  {activeTab === 'mailto' && (
+                    <div className="flex flex-col items-center">
+                      <p className="text-gray-300 mb-4">Open your email client to contact me:</p>
+                      <a
+                        href={`mailto:${email}?subject=Hello from your portfolio`}
+                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition-colors"
+                      >
+                        <Mail className="w-5 h-5" />
+                        Email Me
+                      </a>
+                      <p className="text-gray-400 text-sm mt-4">
+                        Note: This requires a configured email client on your device
+                      </p>
+                    </div>
+                  )}
+                  
+                  {activeTab === 'copy' && (
+                    <div className="flex flex-col items-center">
+                      <p className="text-gray-300 mb-4">Copy my email address:</p>
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-white">{email}</span>
+                        <button
+                          onClick={copyToClipboard}
+                          className="bg-gray-700 hover:bg-gray-600 p-2 rounded-lg transition-colors"
+                        >
+                          {copied ? <Check className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5 text-gray-300" />}
+                        </button>
+                      </div>
+                      <p className="text-gray-400 text-sm">
+                        {copied ? 'Copied to clipboard!' : 'Click the copy button to copy the email'}
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
           </div>
         </div>
 
-        {/* Navigation Bar */}
         <nav 
           className={`fixed top-0 left-0 right-0 z-40 transition-transform duration-300 ${
             isNavVisible ? 'translate-y-0' : '-translate-y-full'
@@ -254,7 +332,6 @@ function App() {
 
         <div className="container mx-auto px-4 pt-24 relative z-10">
           <div className="max-w-4xl mx-auto">
-            {/* Hero Section */}
             <div className="min-h-screen flex flex-col items-center justify-center">
               <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden ring-4 ring-indigo-500 shadow-xl mb-8">
                 <img
@@ -273,7 +350,6 @@ function App() {
               </p>
             </div>
 
-            {/* About Section */}
             <div ref={aboutRef} className="mb-24 scroll-mt-24">
               <h2 className="text-3xl font-bold mb-8 text-amber-400">About Me</h2>
               <div className="bg-gray-800/50 rounded-xl p-8">
@@ -281,11 +357,9 @@ function App() {
                   With over 5 years of experience in full-stack development, I specialize in building scalable web applications using modern technologies. My passion lies in creating elegant solutions to complex problems and staying at the forefront of web development trends.
                 </p>
                 
-                {/* CV Button Section */}
                 <div className="flex justify-center mt-4">
                   <a 
-                    href="/CV.pdf" 
-                    download
+                    href="/CV.pdf"
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors shadow-lg group cursor-pointer"
@@ -298,7 +372,6 @@ function App() {
               </div>
             </div>
 
-            {/* Projects Section */}
             <div ref={projectsRef} className="mb-24 scroll-mt-24">
               <h2 className="text-3xl font-bold mb-8 text-amber-400">Projects</h2>
               <div className="grid md:grid-cols-2 gap-6">
@@ -315,7 +388,6 @@ function App() {
               </div>
             </div>
 
-            {/* Certifications Section */}
             <div ref={certificationsRef} className="mb-24 scroll-mt-24">
               <h2 className="text-3xl font-bold mb-8 text-amber-400">Certifications</h2>
               <div className="space-y-6">
@@ -331,7 +403,6 @@ function App() {
               </div>
             </div>
 
-            {/* Skills Section */}
             <div ref={skillsRef} className="mb-24 scroll-mt-24">
               <h2 className="text-3xl font-bold mb-8 text-amber-400">Skills</h2>
               <div className="grid md:grid-cols-2 gap-6">
@@ -357,7 +428,6 @@ function App() {
           </div>
         </div>
 
-        {/* Added Footer */}
         <footer className="bg-gray-900 py-8">
           <div className="container mx-auto px-4 text-center text-gray-400">
             <p>© {new Date().getFullYear()} Mejan Lamichhane. All rights reserved.</p>

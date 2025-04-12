@@ -188,6 +188,7 @@ function App() {
         href={`mailto:mejan.lamichhane15@gmail.com?subject=Hello from your portfolio`}
         onClick={(e) => {
           e.preventDefault(); // Prevent the default mailto action for now
+          console.log("Toggling tooltip, current state:", showMailTooltip);
           setShowMailTooltip(!showMailTooltip); // Toggle the tooltip regardless of clipboard
         }}
         className="text-gray-300 hover:text-amber-400 transition-colors"

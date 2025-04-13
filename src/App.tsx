@@ -544,7 +544,7 @@ function App() {
 
         <nav className="fixed top-0 left-0 right-0 z-40">
             <div className="container mx-auto px-4 py-6">
-            <div className="max-w-md mx-auto bg-gray-900/90 backdrop-blur-sm rounded-full px-8 py-3">
+            <div className="max-w-lg mx-auto bg-gray-900/90 backdrop-blur-sm rounded-full px-8 py-3">
             <div className="flex items-center gap-6">
                 {[	
 		        { name: 'Home', icon: Home, ref: heroRef, id: 'home' },

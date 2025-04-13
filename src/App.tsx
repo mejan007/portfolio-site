@@ -543,11 +543,11 @@ function App() {
         </div>
 
         <nav className="fixed top-0 left-0 right-0 z-40">
-          <div className="container mx-auto px-4 py-6">
-            <div className="max-w-md mx-auto bg-gray-900/90 backdrop-blur-sm rounded-full px-8 py-3">
-              <div className="flex justify-between items-center">
+            <div className="container mx-auto px-4 py-6">
+            <div className="inline-flex mx-auto bg-gray-900/90 backdrop-blur-sm rounded-full px-8 py-3">
+            <div className="flex items-center gap-4">
                 {[	
-		  { name: 'Home', icon: Home, ref: heroRef, id: 'home' },
+		        { name: 'Home', icon: Home, ref: heroRef, id: 'home' },
                   { name: 'About', icon: User, ref: aboutRef, id: 'about' },
                   { name: 'Projects', icon: Code, ref: projectsRef, id: 'projects' },
                   { name: 'Certifications', icon: Award, ref: certificationsRef, id: 'certifications' },

@@ -151,17 +151,21 @@ function App() {
           #tsparticles {
             position: absolute !important;
             width: 100% !important;
-            height: 100% !important;
+            height: 100vh !important;
             top: 0 !important;
             left: 0 !important;
             z-index: 0 !important;
             pointer-events: none;
+            max-height: 100vh;
+            overflow: hidden;
           }
 
           .hero-section {
             position: relative;
             height: 100vh;
+            max-height: 100vh;
             overflow: hidden;
+            clip-path: inset(0);
           }
 
           .hero-content {

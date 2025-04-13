@@ -24,28 +24,20 @@ function App() {
   const certificationsRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
-  
-  // State variables
   const [showParticles, setShowParticles] = useState(true);
   const [titleIndex, setTitleIndex] = useState(0);
   const [fadeState, setFadeState] = useState('fade-in');
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isNavVisible, setIsNavVisible] = useState(true);
   const [showMailTooltip, setShowMailTooltip] = useState(false);
   const [activeTab, setActiveTab] = useState('mailto');
   const [activeSection, setActiveSection] = useState('about');
   const email = "mejan.lamichhane15@gmail.com";
   const [copied, setCopied] = useState(false);
-  
-  // For timeout management
-  let navTimeout: NodeJS.Timeout;
 
   const titles = [
     "Computer Engineer",
     "Machine Learning Enthusiast",
   ];
 
-  // Set up section observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -78,7 +70,6 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  // Particles visibility handling
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -96,7 +87,6 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  // Handle clicks outside of the mail tooltip
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
@@ -110,45 +100,12 @@ function App() {
     };
   }, []);
 
-  // Navigation visibility on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      const isAtTop = window.scrollY <= 100;
-      setIsScrolled(!isAtTop);
-      
-      if (isAtTop) {
-        setIsNavVisible(true);
-      } else {
-        setIsNavVisible(false);
-        clearTimeout(navTimeout);
-      }
-    };
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(navTimeout);
-    };
-  }, []);
-
-  // Navigation visibility on mouse movement
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (e.clientY < 100) {
-        setIsNavVisible(true);
-      } else if (!isScrolled) {
-        setIsNavVisible(true);
-      } else {
-        clearTimeout(navTimeout);
-        navTimeout = setTimeout(() => setIsNavVisible(false), 2000);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [isScrolled]);
-
-  // Title cycling effect
   useEffect(() => {
     const fadeTimeout = setTimeout(() => {
       if (fadeState === 'fade-in') {
@@ -161,12 +118,6 @@ function App() {
 
     return () => clearTimeout(fadeTimeout);
   }, [fadeState]);
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const particlesInit = useCallback(async (engine: Engine) => {
     await loadSlim(engine);
@@ -312,11 +263,6 @@ function App() {
                         src="/me.jpg"
                         alt="Profile"
                         className="profile-image"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = "/api/placeholder/256/256"; // Fallback if image doesn't exist
-                          target.onerror = null; // Prevent infinite loop
-                        }}
                       />
                     </div>
                     <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">Mejan Lamichhane</h1>
@@ -595,11 +541,7 @@ function App() {
           </div>
         </div>
 
-        <nav 
-          className={`fixed top-0 left-0 right-0 z-40 transition-transform duration-300 ${
-            isNavVisible ? 'translate-y-0' : '-translate-y-full'
-          }`}
-        >
+        <nav className="fixed top-0 left-0 right-0 z-40">
           <div className="container mx-auto px-4 py-6">
             <div className="max-w-md mx-auto bg-gray-900/90 backdrop-blur-sm rounded-full px-8 py-3">
               <div className="flex justify-between items-center">

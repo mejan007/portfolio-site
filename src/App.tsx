@@ -27,18 +27,48 @@
 //   const [showParticles, setShowParticles] = useState(true);
 //   const [titleIndex, setTitleIndex] = useState(0);
 //   const [fadeState, setFadeState] = useState('fade-in');
-//   const [isScrolled, setIsScrolled] = useState(false);
-//   const [isNavVisible, setIsNavVisible] = useState(true);
 //   const [showMailTooltip, setShowMailTooltip] = useState(false);
 //   const [activeTab, setActiveTab] = useState('mailto');
+//   const [activeSection, setActiveSection] = useState('about');
 //   const email = "mejan.lamichhane15@gmail.com";
 //   const [copied, setCopied] = useState(false);
-//   let navTimeout: NodeJS.Timeout;
 
 //   const titles = [
 //     "Computer Engineer",
 //     "Machine Learning Enthusiast",
 //   ];
+
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(
+//       (entries) => {
+//         entries.forEach((entry) => {
+//           if (entry.isIntersecting) {
+//             const id = entry.target.id;
+//             setActiveSection(id);
+//           }
+//         });
+//       },
+//       {
+//         threshold: 0.5,
+//       }
+//     );
+
+//     const sections = [
+//       { ref: aboutRef, id: 'about' },
+//       { ref: projectsRef, id: 'projects' },
+//       { ref: certificationsRef, id: 'certifications' },
+//       { ref: skillsRef, id: 'skills' },
+//     ];
+
+//     sections.forEach(({ ref, id }) => {
+//       if (ref.current) {
+//         ref.current.id = id;
+//         observer.observe(ref.current);
+//       }
+//     });
+
+//     return () => observer.disconnect();
+//   }, []);
 
 //   useEffect(() => {
 //     const observer = new IntersectionObserver(
@@ -77,42 +107,6 @@
 //   };
 
 //   useEffect(() => {
-//     const handleScroll = () => {
-//       const isAtTop = window.scrollY <= 100;
-//       setIsScrolled(!isAtTop);
-      
-//       if (isAtTop) {
-//         setIsNavVisible(true);
-//       } else {
-//         setIsNavVisible(false);
-//         clearTimeout(navTimeout);
-//       }
-//     };
-
-//     window.addEventListener('scroll', handleScroll);
-//     return () => {
-//       window.removeEventListener('scroll', handleScroll);
-//       clearTimeout(navTimeout);
-//     };
-//   }, []);
-
-//   useEffect(() => {
-//     const handleMouseMove = (e: MouseEvent) => {
-//       if (e.clientY < 100) {
-//         setIsNavVisible(true);
-//       } else if (!isScrolled) {
-//         setIsNavVisible(true);
-//       } else {
-//         clearTimeout(navTimeout);
-//         navTimeout = setTimeout(() => setIsNavVisible(false), 2000);
-//       }
-//     };
-
-//     window.addEventListener('mousemove', handleMouseMove);
-//     return () => window.removeEventListener('mousemove', handleMouseMove);
-//   }, [isScrolled]);
-
-//   useEffect(() => {
 //     const fadeTimeout = setTimeout(() => {
 //       if (fadeState === 'fade-in') {
 //         setFadeState('fade-out');
@@ -133,8 +127,9 @@
 //     console.log(container);
 //   }, []);
 
-//   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+//   const scrollToSection = (ref: React.RefObject<HTMLDivElement>, id: string) => {
 //     ref.current?.scrollIntoView({ behavior: 'smooth' });
+//     setActiveSection(id);
 //   };
 
 //   return (
@@ -221,6 +216,20 @@
 //             to {
 //               left: 100%;
 //             }
+//           }
+
+//           .nav-item {
+//             transition: all 0.3s ease;
+//           }
+
+//           .nav-item.active {
+//             color: #f6ad55;
+//             text-shadow: 0 0 10px rgba(246, 173, 85, 0.5);
+//             transform: scale(1.05);
+//           }
+
+//           .nav-item.active svg {
+//             filter: drop-shadow(0 0 5px rgba(246, 173, 85, 0.5));
 //           }
 
 //           .profile-image-container {
@@ -532,24 +541,22 @@
 //           </div>
 //         </div>
 
-//         <nav 
-//           className={`fixed top-0 left-0 right-0 z-40 transition-transform duration-300 ${
-//             isNavVisible ? 'translate-y-0' : '-translate-y-full'
-//           }`}
-//         >
+//         <nav className="fixed top-0 left-0 right-0 z-40">
 //           <div className="container mx-auto px-4 py-6">
 //             <div className="max-w-md mx-auto bg-gray-900/90 backdrop-blur-sm rounded-full px-8 py-3">
 //               <div className="flex justify-between items-center">
 //                 {[
-//                   { name: 'About', icon: User, ref: aboutRef },
-//                   { name: 'Projects', icon: Code, ref: projectsRef },
-//                   { name: 'Certifications', icon: Award, ref: certificationsRef },
-//                   { name: 'Skills', icon: Brain, ref: skillsRef },
-//                 ].map(({ name, icon: Icon, ref }) => (
+//                   { name: 'About', icon: User, ref: aboutRef, id: 'about' },
+//                   { name: 'Projects', icon: Code, ref: projectsRef, id: 'projects' },
+//                   { name: 'Certifications', icon: Award, ref: certificationsRef, id: 'certifications' },
+//                   { name: 'Skills', icon: Brain, ref: skillsRef, id: 'skills' },
+//                 ].map(({ name, icon: Icon, ref, id }) => (
 //                   <button
 //                     key={name}
-//                     onClick={() => scrollToSection(ref)}
-//                     className="flex items-center gap-2 text-gray-300 hover:text-amber-400 transition-colors"
+//                     onClick={() => scrollToSection(ref, id)}
+//                     className={`nav-item flex items-center gap-2 text-gray-300 hover:text-amber-400 transition-colors ${
+//                       activeSection === id ? 'active' : ''
+//                     }`}
 //                   >
 //                     <Icon className="w-4 h-4" />
 //                     <span>{name}</span>
@@ -565,6 +572,10 @@
 // }
 
 // export default App;
+
+
+
+
 
 
 import React, { useRef, useCallback, useState, useEffect } from 'react';
@@ -585,7 +596,50 @@ import {
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";
 import Particles from "react-tsparticles";
-
+const skills = [
+  {
+    name: 'C/C++',
+    icon: Cpu,
+    proficiency: '90%',
+    description: ['Data structures, Pointers, Memory management', 'OOP Concepts and file handling']
+  },
+  {
+    name: 'Python',
+    icon: Python,
+    proficiency: '85%',
+    description: ['Modular coding', 'Virtual environments and package management']
+  },
+  {
+    name: 'Tensorflow & Pytorch',
+    icon: Brain,
+    proficiency: '80%',
+    description: ['Model architecture design', 'Custom metrics and loss functions']
+  },
+  {
+    name: 'NumPy & Pandas',
+    icon: Database,
+    proficiency: '85%',
+    description: ['Data manipulation, cleaning', 'Vectorized Operations']
+  },
+  {
+    name: 'Docker',
+    icon: Docker,
+    proficiency: '75%',
+    description: ['Building and running containers', 'YAML']
+  },
+  {
+    name: 'Kubernetes',
+    icon: Container,
+    proficiency: '70%',
+    description: ['Pods, services, Deployments', 'Local cluster setup(minikube)']
+  },
+  {
+    name: 'Django',
+    icon: Globe,
+    proficiency: '80%',
+    description: ['MVC structure, Django REST Framework', 'Token-based and session based authentication']
+  }
+];
 function App() {
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -991,34 +1045,49 @@ function App() {
 
           <div className="section-divider"></div>
 
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <div ref={skillsRef} className="py-24 scroll-mt-24">
-                  <h2 className="section-heading text-3xl font-bold text-amber-400">Skills</h2>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {[
-                      { category: 'Frontend', skills: ['React', 'TypeScript', 'Tailwind CSS', 'Next.js'] },
-                      { category: 'Backend', skills: ['Node.js', 'Python', 'PostgreSQL', 'Redis'] },
-                      { category: 'DevOps', skills: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'] },
-                      { category: 'Tools', skills: ['Git', 'VS Code', 'Figma', 'Postman'] },
-                    ].map(({ category, skills }) => (
-                      <div key={category} className="bg-gray-800/30 rounded-xl p-6 backdrop-blur-sm">
-                        <h3 className="text-xl font-semibold mb-4 text-indigo-400">{category}</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {skills.map((skill) => (
-                            <span key={skill} className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm">
-                              {skill}
-                            </span>
-                          ))}
+    <div className="bg-gradient-to-br from-gray-800 to-gray-900">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          <div ref={skillsRef} className="py-24 scroll-mt-24">
+            <h2 className="section-heading text-3xl font-bold text-amber-400">Skills</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {skills.map((skill) => (
+                <div key={skill.name} className="group perspective h-64">
+                  <div className="relative h-full transform-style-3d transition-transform duration-500 group-hover:rotate-y-180">
+                    {/* Front side */}
+                    <div className="absolute inset-0 w-full h-full bg-gray-800/30 rounded-xl shadow-lg p-6 backface-hidden backdrop-blur-sm">
+                      <div className="flex flex-col items-center justify-center h-full">
+                        <skill.icon className="w-16 h-16 text-amber-400 mb-4" />
+                        <h3 className="text-xl font-semibold text-white mb-2">{skill.name}</h3>
+                        <div className="w-full bg-gray-700 rounded-full h-2.5">
+                          <div 
+                            className="bg-amber-400 h-2.5 rounded-full transition-all duration-300"
+                            style={{ width: skill.proficiency }}
+                          ></div>
                         </div>
+                        <span className="mt-2 text-sm text-gray-300">{skill.proficiency}</span>
                       </div>
-                    ))}
+                    </div>
+                    {/* Back side */}
+                    <div className="absolute inset-0 w-full h-full bg-indigo-900/50 rounded-xl shadow-lg p-6 backface-hidden rotate-y-180 backdrop-blur-sm">
+                      <div className="flex flex-col items-center justify-center h-full text-white">
+                        <h3 className="text-xl font-semibold mb-4">{skill.name}</h3>
+                        <ul className="text-center space-y-2">
+                          {skill.description.map((desc, index) => (
+                            <li key={index} className="text-gray-200">{desc}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
 
           <footer className="bg-gray-900 py-8">
             <div className="container mx-auto px-4 text-center text-gray-400">

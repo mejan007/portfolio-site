@@ -556,7 +556,7 @@ function App() {
                   <button
                     key={name}
                     onClick={() => scrollToSection(ref, id)}
-                    className={`nav-item flex items-center gap-2 text-gray-300 hover:text-amber-400 transition-colors ${
+                    className={`nav-item flex items-center gap-1 text-gray-300 hover:text-amber-400 transition-colors ${
                       activeSection === id ? 'active' : ''
                     }`}
                   >

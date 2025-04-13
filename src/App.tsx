@@ -2,6 +2,7 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import {
   Github,
   Linkedin,
+  Home,
   Mail,
   Code,
   Award,
@@ -11,7 +12,6 @@ import {
   ExternalLink,
   Copy,
   Check,
-  X,
 } from 'lucide-react';
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";
@@ -545,7 +545,8 @@ function App() {
           <div className="container mx-auto px-4 py-6">
             <div className="max-w-md mx-auto bg-gray-900/90 backdrop-blur-sm rounded-full px-8 py-3">
               <div className="flex justify-between items-center">
-                {[
+                {[	
+		          { name: 'Home', icon: Home, ref: heroRef, id: 'home' },
                   { name: 'About', icon: User, ref: aboutRef, id: 'about' },
                   { name: 'Projects', icon: Code, ref: projectsRef, id: 'projects' },
                   { name: 'Certifications', icon: Award, ref: certificationsRef, id: 'certifications' },

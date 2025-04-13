@@ -2,7 +2,6 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import {
   Github,
   Linkedin,
-  Home,
   Mail,
   Code,
   Award,
@@ -12,6 +11,7 @@ import {
   ExternalLink,
   Copy,
   Check,
+  Home,
 } from 'lucide-react';
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";
@@ -54,6 +54,7 @@ function App() {
     );
 
     const sections = [
+      { ref: heroRef, id: 'home' },
       { ref: aboutRef, id: 'about' },
       { ref: projectsRef, id: 'projects' },
       { ref: certificationsRef, id: 'certifications' },
@@ -253,7 +254,7 @@ function App() {
       
       <div className="text-white relative">
         <div className="relative">
-          <div className="hero-section bg-gradient-to-br from-gray-900 to-gray-800" ref={heroRef}>
+          <div className="hero-section bg-gradient-to-br from-gray-900 to-gray-800" ref={heroRef} id="home">
             <div className="container mx-auto px-4 pt-24 h-full">
               <div className="max-w-4xl mx-auto h-full">
                 <div className="h-full flex flex-col items-center justify-center">
@@ -546,7 +547,7 @@ function App() {
             <div className="max-w-md mx-auto bg-gray-900/90 backdrop-blur-sm rounded-full px-8 py-3">
               <div className="flex justify-between items-center">
                 {[	
-		          { name: 'Home', icon: Home, ref: heroRef, id: 'home' },
+		  { name: 'Home', icon: Home, ref: heroRef, id: 'home' },
                   { name: 'About', icon: User, ref: aboutRef, id: 'about' },
                   { name: 'Projects', icon: Code, ref: projectsRef, id: 'projects' },
                   { name: 'Certifications', icon: Award, ref: certificationsRef, id: 'certifications' },

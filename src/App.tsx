@@ -151,12 +151,17 @@ function App() {
           #tsparticles {
             position: absolute !important;
             width: 100% !important;
-            height: 100vh !important;
+            height: 100% !important;
             top: 0 !important;
             left: 0 !important;
             z-index: 0 !important;
             pointer-events: none;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+          }
+
+          .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
           }
 
           .hero-content {
@@ -165,6 +170,29 @@ function App() {
             background: radial-gradient(circle at center, transparent 30%, rgba(26, 32, 44, 0.8) 100%);
             border-radius: 50%;
             padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .section-heading {
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+          }
+
+          .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #f6ad55;
+            border-radius: 3px;
           }
 
           .section-divider {
@@ -190,21 +218,38 @@ function App() {
               left: 100%;
             }
           }
+
+          .profile-image-container {
+            width: 256px;
+            height: 256px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+          }
+
+          .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+          }
         `}
       </style>
       
       <div className="text-white relative">
         <div className="relative">
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 relative" ref={heroRef}>
-            <div className="container mx-auto px-4 pt-24">
-              <div className="max-w-4xl mx-auto">
-                <div className="min-h-screen flex flex-col items-center justify-center">
-                  <div className="hero-content">
-                    <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden ring-4 ring-indigo-500 shadow-xl mb-8">
+          <div className="hero-section bg-gradient-to-br from-gray-900 to-gray-800" ref={heroRef}>
+            <div className="container mx-auto px-4 pt-24 h-full">
+              <div className="max-w-4xl mx-auto h-full">
+                <div className="h-full flex flex-col items-center justify-center">
+                  <div className="hero-content w-full">
+                    <div className="profile-image-container mb-8">
                       <img
                         src="/me.jpg"
                         alt="Profile"
-                        className="w-full h-full object-cover"
+                        className="profile-image"
                       />
                     </div>
                     <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">Mejan Lamichhane</h1>
@@ -226,11 +271,6 @@ function App() {
                 init={particlesInit}
                 loaded={particlesLoaded}
                 options={{
-                  background: {
-                    color: {
-                      value: "transparent",
-                    },
-                  },
                   fpsLimit: 120,
                   interactivity: {
                     events: {
@@ -296,7 +336,7 @@ function App() {
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <div ref={aboutRef} className="py-24 scroll-mt-24">
-                  <h2 className="text-3xl font-bold mb-8 text-amber-400">About Me</h2>
+                  <h2 className="section-heading text-3xl font-bold text-amber-400">About Me</h2>
                   <div className="bg-gray-800/30 rounded-xl p-8 backdrop-blur-sm">
                     <p className="text-gray-300 leading-relaxed mb-8">
                       With over 5 years of experience in full-stack development, I specialize in building scalable web applications using modern technologies. My passion lies in creating elegant solutions to complex problems and staying at the forefront of web development trends.
@@ -326,7 +366,7 @@ function App() {
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <div ref={projectsRef} className="py-24 scroll-mt-24">
-                  <h2 className="text-3xl font-bold mb-8 text-amber-400">Projects</h2>
+                  <h2 className="section-heading text-3xl font-bold text-amber-400">Projects</h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     {[1, 2, 3, 4].map((project) => (
                       <div key={project} className="bg-gray-800/30 rounded-xl p-6 hover:ring-2 hover:ring-indigo-500 transition-all backdrop-blur-sm">
@@ -350,7 +390,7 @@ function App() {
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <div ref={certificationsRef} className="py-24 scroll-mt-24">
-                  <h2 className="text-3xl font-bold mb-8 text-amber-400">Certifications</h2>
+                  <h2 className="section-heading text-3xl font-bold text-amber-400">Certifications</h2>
                   <div className="space-y-6">
                     {[1, 2, 3].map((cert) => (
                       <div key={cert} className="bg-gray-800/30 rounded-xl p-6 flex items-center gap-6 backdrop-blur-sm">
@@ -373,7 +413,7 @@ function App() {
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <div ref={skillsRef} className="py-24 scroll-mt-24">
-                  <h2 className="text-3xl font-bold mb-8 text-amber-400">Skills</h2>
+                  <h2 className="section-heading text-3xl font-bold text-amber-400">Skills</h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     {[
                       { category: 'Frontend', skills: ['React', 'TypeScript', 'Tailwind CSS', 'Next.js'] },

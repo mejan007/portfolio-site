@@ -12,6 +12,7 @@ import {
   Copy,
   Check,
   Home,
+  X,
 } from 'lucide-react';
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";

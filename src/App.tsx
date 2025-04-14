@@ -18,6 +18,51 @@ import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";
 import Particles from "react-tsparticles";
 
+const skills = [
+  {
+    name: 'C/C++',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
+    proficiency: '90%',
+    description: ['Data structures, Pointers, Memory management', 'OOP Concepts and file handling']
+  },
+  {
+    name: 'Python',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+    proficiency: '85%',
+    description: ['Modular coding', 'Virtual environments and package management']
+  },
+  {
+    name: 'Tensorflow & Pytorch',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',
+    proficiency: '80%',
+    description: ['Model architecture design', 'Custom metrics and loss functions']
+  },
+  {
+    name: 'NumPy & Pandas',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg',
+    proficiency: '85%',
+    description: ['Data manipulation, cleaning', 'Vectorized Operations']
+  },
+  {
+    name: 'Docker',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+    proficiency: '75%',
+    description: ['Building and running containers', 'YAML']
+  },
+  {
+    name: 'Kubernetes',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg',
+    proficiency: '70%',
+    description: ['Pods, services, Deployments', 'Local cluster setup(minikube)']
+  },
+  {
+    name: 'Django',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg',
+    proficiency: '80%',
+    description: ['MVC structure, Django REST Framework', 'Token-based and session based authentication']
+  }
+];
+
 function App() {
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -422,36 +467,52 @@ function App() {
             </div>
           </div>
 
-          <div className="section-divider"></div>
-
           <div className="bg-gradient-to-br from-gray-800 to-gray-900">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <div ref={skillsRef} className="py-24 scroll-mt-24">
-                  <h2 className="section-heading text-3xl font-bold text-amber-400">Skills</h2>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {[
-                      { category: 'Frontend', skills: ['React', 'TypeScript', 'Tailwind CSS', 'Next.js'] },
-                      { category: 'Backend', skills: ['Node.js', 'Python', 'PostgreSQL', 'Redis'] },
-                      { category: 'DevOps', skills: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'] },
-                      { category: 'Tools', skills: ['Git', 'VS Code', 'Figma', 'Postman'] },
-                    ].map(({ category, skills }) => (
-                      <div key={category} className="bg-gray-800/30 rounded-xl p-6 backdrop-blur-sm">
-                        <h3 className="text-xl font-semibold mb-4 text-indigo-400">{category}</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {skills.map((skill) => (
-                            <span key={skill} className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm">
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
+  <div className="container mx-auto px-4">
+    <div className="max-w-4xl mx-auto">
+      <div ref={skillsRef} className="py-24 scroll-mt-24">
+        <h2 className="section-heading text-3xl font-bold text-amber-400">Skills</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skills.map((skill) => (
+            <div key={skill.name} className="group perspective h-64">
+              <div className="relative h-full transform-style-3d transition-transform duration-500 group-hover:rotate-y-180">
+                {/* Front side */}
+                <div className="absolute inset-0 w-full h-full bg-gray-800/30 rounded-xl shadow-lg p-6 backface-hidden backdrop-blur-sm">
+                  <div className="flex flex-col items-center justify-center h-full">
+                    <img 
+                      src={skill.logo} 
+                      alt={`${skill.name} logo`} 
+                      className="w-16 h-16 mb-4"
+                    />
+                    <h3 className="text-xl font-semibold text-white mb-2">{skill.name}</h3>
+                    <div className="w-full bg-gray-700 rounded-full h-2.5">
+                      <div 
+                        className="bg-amber-400 h-2.5 rounded-full transition-all duration-300"
+                        style={{ width: skill.proficiency }}
+                      ></div>
+                    </div>
+                    <span className="mt-2 text-sm text-gray-300">{skill.proficiency}</span>
+                  </div>
+                </div>
+                {/* Back side */}
+                <div className="absolute inset-0 w-full h-full bg-indigo-900/50 rounded-xl shadow-lg p-6 backface-hidden rotate-y-180 backdrop-blur-sm">
+                  <div className="flex flex-col items-center justify-center h-full text-white">
+                    <h3 className="text-xl font-semibold mb-4">{skill.name}</h3>
+                    <ul className="text-center space-y-2">
+                      {skill.description.map((desc, index) => (
+                        <li key={index} className="text-gray-200">{desc}</li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
           <footer className="bg-gray-900 py-8">
             <div className="container mx-auto px-4 text-center text-gray-400">

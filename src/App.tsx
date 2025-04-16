@@ -473,34 +473,33 @@ function App() {
 
           <div className="section-divider"></div>
 
-
-<div ref={aboutRef} className="bg-gradient-to-br from-gray-800 to-gray-700">
-  <div className="container mx-auto px-4">
-    <div className="max-w-4xl mx-auto">
-      <div className="py-24 scroll-mt-24">
-        <h2 className="section-heading text-3xl font-bold text-amber-400">About Me</h2>
-        <div className="bg-gray-800/30 rounded-xl p-8 backdrop-blur-sm">
-          <p className="text-gray-300 leading-relaxed mb-8">
-          I'm a final-year Computer Engineering student at IOE Pulchowk Campus, passionate about machine learning and its real-world applications. As a machine learning enthusiast and aspiring MLOps engineer, I enjoy exploring the full lifecycle of ML systems — from model development to deployment and monitoring. I'm driven by curiosity, continuous learning, and a desire to build scalable, impactful solutions.
-          </p>
-          
-          <div className="flex justify-center mt-4">
-            <a 
-              href="/CV.pdf"
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors shadow-lg group cursor-pointer"
-            >
-              <ExternalLink className="w-5 h-5 group-hover:animate-pulse" />
-              <span>View CV</span>
-              <Download className="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform" />
-            </a>
+          <div className="bg-gradient-to-br from-gray-800 to-gray-700">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <div ref={aboutRef} className="py-24 scroll-mt-24">
+                  <h2 className="section-heading text-3xl font-bold text-amber-400">About Me</h2>
+                  <div className="bg-gray-800/30 rounded-xl p-8 backdrop-blur-sm">
+                    <p className="text-gray-300 leading-relaxed mb-8">
+                    I'm a final-year Computer Engineering student at IOE Pulchowk Campus, passionate about machine learning and its real-world applications. As a machine learning enthusiast and aspiring MLOps engineer, I enjoy exploring the full lifecycle of ML systems — from model development to deployment and monitoring. I'm driven by curiosity, continuous learning, and a desire to build scalable, impactful solutions.
+                    </p>
+                    
+                    <div className="flex justify-center mt-4">
+                      <a 
+                        href="/CV.pdf"
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors shadow-lg group cursor-pointer"
+                      >
+                        <ExternalLink className="w-5 h-5 group-hover:animate-pulse" />
+                        <span>View CV</span>
+                        <Download className="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
           <div className="section-divider"></div>
 

@@ -62,7 +62,48 @@ const skills = [
     description: ['MVC structure, Django REST Framework', 'Token-based and session based authentication']
   }
 ];
-
+const projects = [
+  {
+    title: "Image-Gen",
+    description: "Generated diverse carpet pattern variations from a single input image using Stable Diffusion and ControlNet.",
+    points: [
+      "Leveraged Stable Diffusion with IP Adapter and T2I Adapter to enhance image diversity",
+      "Built a dynamic LLM-driven pipeline for automated prompt generation and multi-stage image synthesis"
+    ],
+    tools: ["Python", "PyTorch", "Hugging Face", "NumPy", "Matplotlib"],
+    github: "https://github.com/anmol-c03/image_gen_hackathon"
+  },
+  {
+    title: "Iris Recognition using Siamese Neural Network",
+    description: "Built a biometric system for one-shot iris recognition using Siamese architecture.",
+    points: [
+      "Designed a Siamese Neural Network with pre-trained CNNs (VGG16, ResNet50) for feature extraction",
+      "Computed similarity scores based on feature vector distances to match iris images"
+    ],
+    tools: ["Python", "TensorFlow", "OpenCV", "Scikit-learn", "Pandas"],
+    github: "https://github.com/yourusername/iris-recognition"
+  },
+  {
+    title: "Network Intrusion Detection System",
+    description: "Real-time detection of network intrusions using machine learning and deep learning models.",
+    points: [
+      "Engineered a full pipeline for parsing, preprocessing, training, and live detection of malicious traffic",
+      "Integrated ElastiCache Pub/Sub for scalable real-time prediction serving"
+    ],
+    tools: ["Python", "PyTorch", "Redis", "Scapy", "Scikit-learn"],
+    github: "https://github.com/mejan007/Network_Intrusion_detection#"
+  },
+  {
+    title: "Restricted Boltzmann Machine",
+    description: "Implemented a Restricted Boltzmann Machine for unsupervised learning tasks.",
+    points: [
+      "Developed a custom RBM for dimensionality reduction, feature extraction, and collaborative filtering",
+      "Visualized learned features and reconstruction outputs"
+    ],
+    tools: ["Python", "TensorFlow", "NumPy", "Matplotlib"],
+    github: "https://github.com/mejan007/Restricted-Boltzmann-Machine"
+  }
+];
 function App() {
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -422,27 +463,55 @@ function App() {
 
           <div className="section-divider"></div>
 
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <div ref={projectsRef} className="py-24 scroll-mt-24">
-                  <h2 className="section-heading text-3xl font-bold text-amber-400">Projects</h2>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {[1, 2, 3, 4].map((project) => (
-                      <div key={project} className="bg-gray-800/30 rounded-xl p-6 hover:ring-2 hover:ring-indigo-500 transition-all backdrop-blur-sm">
-                        <h3 className="text-xl font-semibold mb-3">Project {project}</h3>
-                        <p className="text-gray-400 mb-4">A brief description of the project and its key features. Technologies used and impact created.</p>
-                        <div className="flex gap-2">
-                          <span className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm">React</span>
-                          <span className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm">Node.js</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+          <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div ref={projectsRef} className="py-24 scroll-mt-24">
+        <h2 className="section-heading text-3xl font-bold text-amber-400">Projects</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          {projects.map((project, index) => (
+            <div 
+              key={index} 
+              className="bg-gray-800/30 rounded-xl p-6 hover:ring-2 hover:ring-indigo-500 transition-all backdrop-blur-sm group"
+            >
+              <h3 className="text-xl font-semibold mb-3 group-hover:text-amber-400 transition-colors">
+                {project.title}
+              </h3>
+              <p className="text-gray-400 mb-4 line-clamp-2">{project.description}</p>
+              
+              <div className="space-y-2 mb-4">
+                {project.points.map((point, idx) => (
+                  <p key={idx} className="text-gray-300 text-sm flex items-start">
+                    <span className="text-amber-400 mr-2">•</span>
+                    {point}
+                  </p>
+                ))}
               </div>
+
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tools.map((tool, idx) => (
+                  <span 
+                    key={idx} 
+                    className="px-3 py-1 bg-indigo-900/50 rounded-full text-sm text-gray-300 hover:bg-indigo-800/50 transition-colors"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-gray-700/50 hover:bg-gray-600/50 text-white px-4 py-2 rounded-lg transition-all group-hover:translate-y-0 translate-y-1"
+              >
+                <Github className="w-4 h-4" />
+                View Project
+                <ExternalLink className="w-4 h-4" />
+              </a>
             </div>
-          </div>
+          ))}
+        </div>
+      </div>
+    </div>
 
           <div className="section-divider"></div>
 

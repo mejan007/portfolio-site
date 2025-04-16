@@ -134,10 +134,13 @@ function App() {
   const [activeSection, setActiveSection] = useState('about');
   const email = "mejan.lamichhane15@gmail.com";
   const [copied, setCopied] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [isHoveringLeft, setIsHoveringLeft] = useState(false);
 
   const titles = [
     "Computer Engineer",
     "Machine Learning Enthusiast",
+    "DevOps Practicioner",
   ];
 
   useEffect(() => {
@@ -234,7 +237,30 @@ function App() {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
     setActiveSection(id);
   };
-
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowSidebar(entry.isIntersecting || isHoveringLeft);
+      },
+      { threshold: 0.1 }
+    );
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+    return () => observer.disconnect();
+  }, [isHoveringLeft]);
+  
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const isLeftSide = e.clientX <= 50; // 50px from the left edge
+      setIsHoveringLeft(isLeftSide);
+      if (isLeftSide) {
+        setShowSidebar(true);
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
   return (
     <>
       <style>
@@ -543,22 +569,24 @@ function App() {
                 {certifications.map((cert, index) => (
                   <div 
                     key={index} 
-                    className="bg-gray-800/30 rounded-xl p-6 flex items-center gap-6 backdrop-blur-sm hover:bg-gray-700/30 transition-colors cursor-pointer"
+                        className="bg-gray-800/30 rounded-xl p-6 flex items-center gap-6 backdrop-blur-sm hover:bg-gray-700/30 transition-all cursor-pointer group"
                     onClick={() => window.open(cert.pdfPath, '_blank')}
                   >
                     <Award className="w-12 h-12 text-indigo-400" />
                     <div>
-                      <h3 className="text-xl font-semibold mb-2">{cert.name}</h3>
-                      <p className="text-gray-400">{cert.organization} • {cert.year}</p>
-                    </div>
-                    <ExternalLink className="w-6 h-6 text-gray-400 ml-auto" />
+                          <h3 className="text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors">
+                            {cert.name}
+                          </h3>
+                          <p className="text-gray-400">{cert.organization} • {cert.year}</p>
+                        </div>
+                        <ExternalLink className="w-6 h-6 text-gray-400 ml-auto transition-transform group-hover:scale-110 group-hover:text-amber-400" />
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
           <div className="section-divider"></div>
           <div className="bg-gradient-to-br from-gray-800 to-gray-900">
@@ -615,7 +643,11 @@ function App() {
           </footer>
         </div>
 
-        <div className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50">
+        <div 
+          className={`fixed left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/90 p-4 rounded-r-lg backdrop-blur-sm z-50 transition-transform duration-300 ${
+            showSidebar ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
           <div className="flex flex-col gap-6">
             <a href="https://github.com/mejan007" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-amber-400 transition-colors">
               <Github className="w-6 h-6" />

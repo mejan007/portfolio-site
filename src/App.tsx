@@ -463,16 +463,16 @@ function App() {
 
           <div className="section-divider"></div>
 
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900">
-  <div className="container mx-auto px-4">
-    <div className="max-w-5xl mx-auto">
+<div className="bg-gradient-to-br from-gray-800 to-gray-900">
+  <div className="container px-4 ml-64"> {/* Removed mx-auto, added ml-64 for sidebar space */}
+    <div className="max-w-5xl"> {/* Removed mx-auto */}
       <div ref={projectsRef} className="py-24 scroll-mt-24">
         <h2 className="section-heading text-3xl font-bold text-amber-400">Projects</h2>
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project, index) => (
             <div 
               key={index} 
-              className="bg-gray-800/30 rounded-xl p-6 hover:ring-2 hover:ring-indigo-500 transition-all backdrop-blur-sm group"
+              className="bg-gray-700/50 rounded-xl p-6 hover:ring-2 hover:ring-indigo-500 transition-all backdrop-blur-sm group"
             >
               <h3 className="text-xl font-semibold mb-3 group-hover:text-amber-400 transition-colors">
                 {project.title}

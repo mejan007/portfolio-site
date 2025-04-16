@@ -499,7 +499,7 @@ function App() {
                 ))}
               </div>
 
-              
+              <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"

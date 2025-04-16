@@ -22,7 +22,7 @@ const skills = [
   {
     name: 'C/C++',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
-    proficiency: '90%',
+    proficiency: '80%',
     description: ['Data structures, Pointers, Memory management', 'OOP Concepts and file handling']
   },
   {
@@ -34,7 +34,7 @@ const skills = [
   {
     name: 'Tensorflow & Pytorch',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',
-    proficiency: '80%',
+    proficiency: '75%',
     description: ['Model architecture design', 'Custom metrics and loss functions']
   },
   {
@@ -46,19 +46,19 @@ const skills = [
   {
     name: 'Docker',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
-    proficiency: '75%',
+    proficiency: '65%',
     description: ['Building and running containers', 'YAML']
   },
   {
     name: 'Kubernetes',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg',
-    proficiency: '70%',
+    proficiency: '65%',
     description: ['Pods, services, Deployments', 'Local cluster setup(minikube)']
   },
   {
     name: 'Django',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg',
-    proficiency: '80%',
+    proficiency: '70%',
     description: ['MVC structure, Django REST Framework', 'Token-based and session based authentication']
   }
 ];
@@ -140,7 +140,6 @@ function App() {
   const titles = [
     "Computer Engineer",
     "Machine Learning Enthusiast",
-    "DevOps Practicioner",
   ];
 
   useEffect(() => {

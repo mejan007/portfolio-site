@@ -463,7 +463,9 @@ function App() {
 
           <div className="section-divider"></div>
 
-          <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900">
+  <div className="container mx-auto px-4">
+    <div className="max-w-4xl mx-auto">
       <div ref={projectsRef} className="py-24 scroll-mt-24">
         <h2 className="section-heading text-3xl font-bold text-amber-400">Projects</h2>
         <div className="grid md:grid-cols-2 gap-6">
@@ -497,7 +499,7 @@ function App() {
                 ))}
               </div>
 
-              <a
+              
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -512,6 +514,8 @@ function App() {
         </div>
       </div>
     </div>
+  </div>
+</div>
 
           <div className="section-divider"></div>
 

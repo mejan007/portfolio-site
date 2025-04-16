@@ -465,7 +465,7 @@ function App() {
 
           <div className="bg-gradient-to-br from-gray-800 to-gray-900">
   <div className="container mx-auto px-4">
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-5xl mx-auto">
       <div ref={projectsRef} className="py-24 scroll-mt-24">
         <h2 className="section-heading text-3xl font-bold text-amber-400">Projects</h2>
         <div className="grid md:grid-cols-2 gap-6">

@@ -104,6 +104,21 @@ const projects = [
     github: "https://github.com/mejan007/Restricted-Boltzmann-Machine"
   }
 ];
+
+const certifications = [
+  {
+    name: "Machine Learning Specialization",
+    organization: "DeepLearning.AI & Stanford University (via Coursera)",
+    year: "2023",
+    pdfPath: "/certificates/ML_cert.pdf"
+  },
+  {
+    name: "Django Web Framework",
+    organization: "Meta (via Coursera)",
+    year: "2024",
+    pdfPath: "/certificates/django_cert.pdf"
+  }
+];
 function App() {
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -440,7 +455,7 @@ function App() {
                   <h2 className="section-heading text-3xl font-bold text-amber-400">About Me</h2>
                   <div className="bg-gray-800/30 rounded-xl p-8 backdrop-blur-sm">
                     <p className="text-gray-300 leading-relaxed mb-8">
-                      With over 5 years of experience in full-stack development, I specialize in building scalable web applications using modern technologies. My passion lies in creating elegant solutions to complex problems and staying at the forefront of web development trends.
+                    I’m a final-year Computer Engineering student at IOE Pulchowk Campus, passionate about machine learning and its real-world applications. As a machine learning enthusiast and aspiring MLOps engineer, I enjoy exploring the full lifecycle of ML systems — from model development to deployment and monitoring. I’m driven by curiosity, continuous learning, and a desire to build scalable, impactful solutions.
                     </p>
                     
                     <div className="flex justify-center mt-4">
@@ -520,26 +535,32 @@ function App() {
           <div className="section-divider"></div>
 
           <div className="bg-gradient-to-br from-gray-900 to-gray-800">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <div ref={certificationsRef} className="py-24 scroll-mt-24">
-                  <h2 className="section-heading text-3xl font-bold text-amber-400">Certifications</h2>
-                  <div className="space-y-6">
-                    {[1, 2, 3].map((cert) => (
-                      <div key={cert} className="bg-gray-800/30 rounded-xl p-6 flex items-center gap-6 backdrop-blur-sm">
-                        <Award className="w-12 h-12 text-indigo-400" />
-                        <div>
-                          <h3 className="text-xl font-semibold mb-2">Certification {cert}</h3>
-                          <p className="text-gray-400">Issuing organization • Year</p>
-                        </div>
-                      </div>
-                    ))}
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div ref={certificationsRef} className="py-24 scroll-mt-24">
+              <h2 className="section-heading text-3xl font-bold text-amber-400">Certifications</h2>
+              <div className="space-y-6">
+                {certifications.map((cert, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-gray-800/30 rounded-xl p-6 flex items-center gap-6 backdrop-blur-sm hover:bg-gray-700/30 transition-colors cursor-pointer"
+                    onClick={() => window.open(cert.pdfPath, '_blank')}
+                  >
+                    <Award className="w-12 h-12 text-indigo-400" />
+                    <div>
+                      <h3 className="text-xl font-semibold mb-2">{cert.name}</h3>
+                      <p className="text-gray-400">{cert.organization} • {cert.year}</p>
+                    </div>
+                    <ExternalLink className="w-6 h-6 text-gray-400 ml-auto" />
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
+          <div className="section-divider"></div>
           <div className="bg-gradient-to-br from-gray-800 to-gray-900">
   <div className="container mx-auto px-4">
     <div className="max-w-4xl mx-auto">

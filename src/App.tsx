@@ -120,7 +120,7 @@ const certifications = [
   },
   {
     name: "Microdegree in Artificial Intelligence",
-    organization: "Fusemachines"
+    organization: "Fusemachines",
     year: "2025",
     pdfPath: "/certificates/fusemachines.pdf"
   }

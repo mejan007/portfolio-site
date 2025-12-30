@@ -117,6 +117,12 @@ const certifications = [
     organization: "Meta (via Coursera)",
     year: "2024",
     pdfPath: "/certificates/django_cert.pdf"
+  },
+  {
+    name: "Microdegree in Artificial Intelligence",
+    organization: "Fusemachines"
+    year: "2025",
+    pdfPath: "/certificates/fusemachines.pdf"
   }
 ];
 function App() {
